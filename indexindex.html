@@ -1,204 +1,263 @@
-import React, { useState } from 'react';
-import { ShieldAlert, HeartHandshake, Activity, BrainCircuit, ChevronDown, ChevronUp, Eye, Hand, MessageSquareQuote } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Te Ara Pōwhiri Pocket Guide</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel to compile JSX in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-const pouData = [
-  {
-    id: 1,
-    name: "POU TUARONGO",
-    brainRegion: "Brain Stem / Survival Brain",
-    color: "bg-red-900",
-    lightColor: "bg-red-50",
-    textColor: "text-red-900",
-    borderColor: "border-red-200",
-    icon: ShieldAlert,
-    stages: [
-      "1. Te Waharoa & Waerea",
-      "2. Whakawhanaungatanga & Wero"
-    ],
-    indicators: "Yelling, posturing, running, refusing, 'defiant' behaviour. Nervous system is in fight/flight.",
-    action: "Ground yourself (He Urungā Tū). Do not pick up the weapon (argue). Be silent. Hold the space safely until the 'earthquake' stops.",
-    script: "His Survival Brain (Pou Tuarongo) is activated. This is a safety check (Wero), not defiance. Lower demands and hold the space until his nervous system settles."
-  },
-  {
-    id: 2,
-    name: "POU TOKOMANAWA",
-    brainRegion: "Limbic System / Emotional Brain",
-    color: "bg-green-800",
-    lightColor: "bg-green-50",
-    textColor: "text-green-800",
-    borderColor: "border-green-200",
-    icon: HeartHandshake,
-    stages: [
-      "3. Kohikohi & Karanga",
-      "4. Āta Whakaaro & Whaikōrero"
-    ],
-    indicators: "Pausing, looking around, checking for safety, glaring but quiet. Assessing friend or foe.",
-    action: "Soften your eyes (Kanohi Kitea). Use their name. Acknowledge identity (Whakapapa) to establish relational safety before discussing the problem.",
-    script: "His Emotional Brain (Pou Tokomanawa) is scanning for threats. He needs a Karanga. Soften your tone, use his name, and acknowledge him before talking about schoolwork."
-  },
-  {
-    id: 3,
-    name: "POU TĀHŪ",
-    brainRegion: "Diencephalon & Cerebellum / Movement Brain",
-    color: "bg-blue-800",
-    lightColor: "bg-blue-50",
-    textColor: "text-blue-800",
-    borderColor: "border-blue-200",
-    icon: Activity,
-    stages: [
-      "5. Tātai & Waiata",
-      "6. Whakamahi & Koha"
-    ],
-    indicators: "Breathing slower, waiting, but fidgeting or unable to sit perfectly still. Needing an outlet.",
-    action: "Stand side-by-side. Engage in a shared, predictable, rhythmic activity (walking, deep breathing, a simple task) to co-regulate.",
-    script: "Before we access the Thinking Brain for math, we must regulate the Movement Brain (Pou Tāhū). Let's use a rhythmic activity—a quick walk or predictable task—to settle his body first."
-  },
-  {
-    id: 4,
-    name: "POU KAIĀWHĀ",
-    brainRegion: "Cerebral Cortex / Thinking Brain",
-    color: "bg-amber-600",
-    lightColor: "bg-amber-50",
-    textColor: "text-amber-800",
-    borderColor: "border-amber-200",
-    icon: BrainCircuit,
-    stages: [
-      "7. Whai Whakaaro & Hongi",
-      "8. Mana Motuhake & Hākari"
-    ],
-    indicators: "Relaxed body language, making eye contact, focused, smiling or ready to engage.",
-    action: "Celebrate mastery. Engage in high-level reflection. Discuss the repair/plan using cognitive logic.",
-    script: "The environment is Noa (Safe). His Thinking Brain (Pou Kaiāwhā) is online. Now we can do the cognitive work, reflect on the behaviour, and engage in learning."
-  }
-];
+    <style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .accordion-content { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-amber-200">
+    <div id="root"></div>
 
-export default function App() {
-  const [expandedId, setExpandedId] = useState(null);
+    <script type="text/babel">
+        const { useState } = React;
 
-  const toggleExpand = (id) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
+        // SVG Icons for the UI
+        const Icons = {
+            Shield: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>,
+            Heart: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path></svg>,
+            Activity: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>,
+            Brain: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>,
+            ChevronDown: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>,
+            ChevronUp: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>,
+            Quote: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>,
+            Eye: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>,
+            Hand: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg>
+        };
 
-  return (
-    <div className="min-h-screen bg-gray-100 flex justify-center font-sans pb-10">
-      <div className="w-full max-w-md bg-gray-100 sm:shadow-lg sm:my-6 sm:rounded-2xl overflow-hidden flex flex-col">
-        
-        {/* Header Section */}
-        <header className="bg-slate-900 text-white p-6 pb-8 rounded-b-3xl shadow-md z-10">
-          <h1 className="text-2xl font-bold tracking-tight mb-1">Te Ara Pōwhiri</h1>
-          <h2 className="text-sm text-slate-300 font-medium tracking-wide uppercase">Pouwhirinaki Field Guide</h2>
-          <p className="mt-4 text-sm text-slate-400 leading-relaxed">
-            Select the brain state you are currently observing to access your casework strategy and Kaiako coaching scripts.
-          </p>
-        </header>
+        const pouData = [
+            {
+                id: 1,
+                name: "POU TUARONGO",
+                brainRegion: "Brain Stem / Survival Brain",
+                anatomy: "Regulates autonomic functions, survival instincts, and the fight/flight/freeze response.",
+                color: "bg-red-900",
+                lightColor: "bg-red-50",
+                textColor: "text-red-900",
+                borderColor: "border-red-200",
+                icon: "Shield",
+                stages: [
+                    { hp: "Te Waharoa", tap: "Waerea", desc: "Clear your own static. Ground yourself." },
+                    { hp: "Whakawhanaungatanga", tap: "Wero", desc: "Navigate the challenge. Hold the space safely." }
+                ],
+                indicators: "Yelling, posturing, running, refusing. Nervous system is in fight/flight. Assessing physical safety.",
+                action: "Ground yourself (He Urungā Tū). Do not pick up the weapon (argue). Silence. Hold the space safely until the 'earthquake' stops. Reduce all demands.",
+                script: "His Survival Brain (Pou Tuarongo) is activated. This is a safety check (Wero), not defiance. Lower demands and hold the space until his nervous system settles."
+            },
+            {
+                id: 2,
+                name: "POU TOKOMANAWA",
+                brainRegion: "Limbic System / Emotional Brain",
+                anatomy: "Amygdala, Hippocampus, Hypothalamus, Thalamus, Cingulate Gyrus, Basal Ganglia.",
+                color: "bg-emerald-800",
+                lightColor: "bg-emerald-50",
+                textColor: "text-emerald-800",
+                borderColor: "border-emerald-200",
+                icon: "Heart",
+                stages: [
+                    { hp: "Kohikohi", tap: "Karanga", desc: "Send the call of connection. Prioritize Whakapapa." },
+                    { hp: "Āta Whakaaro", tap: "Whaikōrero", desc: "Speak the truth with mana. Reframe the narrative." }
+                ],
+                indicators: "Pausing, looking around, checking for safety, glaring but quiet. Assessing friend or foe.",
+                action: "Soften your eyes (Kanohi Kitea). Use their name. Acknowledge identity (Whakapapa) to establish relational safety before discussing any problems.",
+                script: "His Emotional Brain (Pou Tokomanawa) is scanning for threats. He needs a Karanga. Soften your tone, use his name, and acknowledge him before talking about schoolwork."
+            },
+            {
+                id: 3,
+                name: "POU TĀHŪ",
+                brainRegion: "Diencephalon & Cerebellum / Movement Brain",
+                anatomy: "Regulates motor control, rhythm, coordination, and patterned regulatory impulses.",
+                color: "bg-blue-800",
+                lightColor: "bg-blue-50",
+                textColor: "text-blue-800",
+                borderColor: "border-blue-200",
+                icon: "Activity",
+                stages: [
+                    { hp: "Tātai", tap: "Waiata", desc: "Find the shared rhythm. Plan predictability." },
+                    { hp: "Whakamahi", tap: "Koha", desc: "Stand side-by-side. Reciprocal co-regulation." }
+                ],
+                indicators: "Breathing slower, waiting, but fidgeting or unable to sit perfectly still. Needing a physical outlet.",
+                action: "Stand side-by-side. Engage in a shared, predictable, rhythmic activity (walking, deep breathing, a simple task) to co-regulate and soothe the nervous system.",
+                script: "Before we access the Thinking Brain for math, we must regulate the Movement Brain (Pou Tāhū). Let's use a rhythmic activity—a quick walk or predictable task—to settle his body first."
+            },
+            {
+                id: 4,
+                name: "POU KAIĀWHĀ",
+                brainRegion: "Cerebral Cortex / Thinking Brain",
+                anatomy: "Regulates executive functioning, logic, reasoning, language, and future planning.",
+                color: "bg-amber-600",
+                lightColor: "bg-amber-50",
+                textColor: "text-amber-800",
+                borderColor: "border-amber-200",
+                icon: "Brain",
+                stages: [
+                    { hp: "Whai Whakaaro", tap: "Hongi", desc: "Deep reflection and the shared breath of intellect." },
+                    { hp: "Mana Motuhake", tap: "Hākari", desc: "Celebrate mastery and transition independently." }
+                ],
+                indicators: "Relaxed body language, making eye contact, focused, smiling or ready to engage cognitively.",
+                action: "Celebrate mastery. Engage in high-level reflection. Discuss the repair/plan using cognitive logic now that the lower brain regions are safe.",
+                script: "The environment is Noa (Safe). His Thinking Brain (Pou Kaiāwhā) is online. Now we can do the cognitive work, reflect on the behaviour, and engage in learning."
+            }
+        ];
 
-        {/* Main Content - Accordion List */}
-        <main className="flex-1 px-4 -mt-4 relative z-0">
-          <div className="space-y-4">
-            {pouData.map((pou) => {
-              const isExpanded = expandedId === pou.id;
-              const Icon = pou.icon;
+        function App() {
+            const [expandedId, setExpandedId] = useState(null);
 
-              return (
-                <div 
-                  key={pou.id} 
-                  className={`bg-white rounded-xl shadow-sm border overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'ring-2 ring-slate-400 shadow-md' : 'border-gray-200'}`}
-                >
-                  {/* Accordion Header */}
-                  <button
-                    onClick={() => toggleExpand(pou.id)}
-                    className={`w-full flex items-center justify-between p-4 text-left transition-colors duration-200 ${isExpanded ? pou.color : 'bg-white hover:bg-gray-50'}`}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className={`p-2 rounded-lg ${isExpanded ? 'bg-white/20 text-white' : pou.textColor + ' bg-gray-100'}`}>
-                        <Icon size={24} strokeWidth={2} />
-                      </div>
-                      <div>
-                        <h3 className={`font-bold text-lg ${isExpanded ? 'text-white' : 'text-gray-900'}`}>
-                          {pou.name}
-                        </h3>
-                        <p className={`text-xs font-medium ${isExpanded ? 'text-white/80' : 'text-gray-500'}`}>
-                          {pou.brainRegion}
-                        </p>
-                      </div>
-                    </div>
-                    <div>
-                      {isExpanded ? (
-                        <ChevronUp className="text-white" size={20} />
-                      ) : (
-                        <ChevronDown className="text-gray-400" size={20} />
-                      )}
-                    </div>
-                  </button>
+            const toggleExpand = (id) => {
+                setExpandedId(expandedId === id ? null : id);
+            };
 
-                  {/* Accordion Body */}
-                  <div 
-                    className={`transition-all duration-300 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}
-                  >
-                    <div className="p-5 space-y-6">
-                      
-                      {/* Phases Alignment */}
-                      <div className={`p-3 rounded-lg border ${pou.lightColor} ${pou.borderColor}`}>
-                        <h4 className={`text-xs uppercase font-bold mb-2 tracking-wider ${pou.textColor}`}>Alignment Matrix</h4>
-                        <ul className="text-sm text-gray-700 space-y-1 font-medium">
-                          {pou.stages.map((stage, index) => (
-                            <li key={index} className="flex items-center">
-                              <span className="w-1.5 h-1.5 rounded-full bg-gray-400 mr-2"></span>
-                              {stage}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Indicators */}
-                      <div>
-                        <div className="flex items-center space-x-2 mb-1.5">
-                          <Eye size={18} className="text-slate-500" />
-                          <h4 className="font-bold text-slate-800 text-sm uppercase">What You See</h4>
+            return (
+                <div className="max-w-md mx-auto min-h-screen bg-slate-100 sm:shadow-2xl sm:my-8 sm:rounded-3xl flex flex-col relative overflow-hidden">
+                    
+                    {/* Header */}
+                    <header className="bg-slate-900 text-white px-6 pt-10 pb-8 shadow-md z-10 rounded-b-3xl shrink-0">
+                        <div className="flex justify-between items-start">
+                            <div>
+                                <h1 className="text-3xl font-extrabold tracking-tight mb-1">Te Ara Pōwhiri</h1>
+                                <h2 className="text-xs text-slate-400 font-bold tracking-widest uppercase">Pouwhirinaki Field Guide</h2>
+                            </div>
                         </div>
-                        <p className="text-sm text-slate-600 leading-relaxed pl-6 border-l-2 border-slate-200">
-                          {pou.indicators}
+                        <p className="mt-4 text-sm text-slate-300 leading-relaxed font-medium">
+                            Select the brain state you are observing to access the 1-to-1 casework matrix, strategies, and Kaiako scripts.
                         </p>
-                      </div>
+                    </header>
 
-                      {/* Action */}
-                      <div>
-                        <div className="flex items-center space-x-2 mb-1.5">
-                          <Hand size={18} className="text-slate-500" />
-                          <h4 className="font-bold text-slate-800 text-sm uppercase">Your RTLB Action</h4>
+                    {/* Accordion List */}
+                    <main className="flex-1 px-4 -mt-4 pt-8 pb-10 z-0 overflow-y-auto no-scrollbar">
+                        <div className="space-y-4">
+                            {pouData.map((pou) => {
+                                const isExpanded = expandedId === pou.id;
+                                const IconComponent = Icons[pou.icon];
+                                const ChevronDown = Icons.ChevronDown;
+                                const ChevronUp = Icons.ChevronUp;
+                                const Eye = Icons.Eye;
+                                const Hand = Icons.Hand;
+                                const Quote = Icons.Quote;
+
+                                return (
+                                    <div key={pou.id} className={`bg-white rounded-2xl shadow-sm border overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'ring-2 ring-slate-400 shadow-md' : 'border-gray-200'}`}>
+                                        
+                                        {/* Accordion Header */}
+                                        <button
+                                            onClick={() => toggleExpand(pou.id)}
+                                            className={`w-full flex items-center justify-between p-4 text-left transition-colors duration-200 ${isExpanded ? pou.color : 'bg-white hover:bg-gray-50'}`}
+                                        >
+                                            <div className="flex items-center space-x-4">
+                                                <div className={`p-2 rounded-xl ${isExpanded ? 'bg-white/20 text-white' : pou.textColor + ' bg-gray-100'}`}>
+                                                    <IconComponent />
+                                                </div>
+                                                <div>
+                                                    <h3 className={`font-bold text-lg leading-tight ${isExpanded ? 'text-white' : 'text-slate-900'}`}>
+                                                        {pou.name}
+                                                    </h3>
+                                                    <p className={`text-xs font-semibold mt-0.5 ${isExpanded ? 'text-white/80' : 'text-slate-500'}`}>
+                                                        {pou.brainRegion}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="shrink-0 ml-2">
+                                                {isExpanded ? <ChevronUp /> : <ChevronDown className="text-slate-400" />}
+                                            </div>
+                                        </button>
+
+                                        {/* Accordion Body */}
+                                        <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                            <div className="p-5 space-y-6 bg-white">
+                                                
+                                                {/* Anatomy Note */}
+                                                <div className="text-xs text-slate-500 italic border-b pb-3">
+                                                    {pou.anatomy}
+                                                </div>
+                                                
+                                                {/* Phases Alignment */}
+                                                <div className={`p-4 rounded-xl border ${pou.lightColor} ${pou.borderColor}`}>
+                                                    <h4 className={`text-xs uppercase font-extrabold mb-3 tracking-wider ${pou.textColor}`}>Alignment Matrix</h4>
+                                                    <div className="space-y-3">
+                                                        {pou.stages.map((stage, index) => (
+                                                            <div key={index} className="flex flex-col">
+                                                                <div className="flex items-center text-sm font-bold text-slate-800">
+                                                                    <span className={`w-1.5 h-1.5 rounded-full mr-2 ${pou.color}`}></span>
+                                                                    {stage.hp} & {stage.tap}
+                                                                </div>
+                                                                <div className="text-xs text-slate-600 ml-3.5 mt-0.5">
+                                                                    {stage.desc}
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                {/* Indicators */}
+                                                <div>
+                                                    <div className="flex items-center space-x-2 mb-2">
+                                                        <Eye />
+                                                        <h4 className="font-bold text-slate-800 text-sm uppercase tracking-wide">What You See</h4>
+                                                    </div>
+                                                    <p className="text-sm text-slate-600 leading-relaxed pl-6 border-l-2 border-slate-200">
+                                                        {pou.indicators}
+                                                    </p>
+                                                </div>
+
+                                                {/* Action */}
+                                                <div>
+                                                    <div className="flex items-center space-x-2 mb-2">
+                                                        <Hand />
+                                                        <h4 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Your RTLB Action</h4>
+                                                    </div>
+                                                    <p className="text-sm text-slate-600 leading-relaxed pl-6 border-l-2 border-slate-200">
+                                                        {pou.action}
+                                                    </p>
+                                                </div>
+
+                                                {/* Script */}
+                                                <div className={`mt-2 p-4 rounded-xl border-l-4 shadow-sm bg-white border ${pou.borderColor}`} style={{ borderLeftColor: '#' + (pou.color.includes('red') ? '991b1b' : pou.color.includes('emerald') ? '065f46' : pou.color.includes('blue') ? '1e40af' : 'b45309') }}>
+                                                    <div className="flex items-center space-x-2 mb-2">
+                                                        <Quote />
+                                                        <h4 className={`font-bold text-sm uppercase tracking-wide ${pou.textColor}`}>Kaiako Coaching Script</h4>
+                                                    </div>
+                                                    <p className="text-sm text-slate-800 italic font-medium leading-relaxed">
+                                                        "{pou.script}"
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
-                        <p className="text-sm text-slate-600 leading-relaxed pl-6 border-l-2 border-slate-200">
-                          {pou.action}
-                        </p>
-                      </div>
-
-                      {/* Script */}
-                      <div className={`mt-6 p-4 rounded-xl border-l-4 shadow-sm bg-white border ${pou.borderColor}`} style={{ borderLeftColor: pou.color }}>
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center space-x-2">
-                            <MessageSquareQuote size={18} className={pou.textColor} />
-                            <h4 className={`font-bold text-sm uppercase ${pou.textColor}`}>Kaiako Coaching Script</h4>
-                          </div>
-                        </div>
-                        <p className="text-sm text-slate-700 italic font-medium leading-relaxed">
-                          "{pou.script}"
-                        </p>
-                      </div>
-
-                    </div>
-                  </div>
+                    </main>
+                    
+                    {/* Footer */}
+                    <footer className="py-5 text-center text-xs text-slate-400 bg-slate-100 shrink-0">
+                        <p>Developed for Cluster 21 Pouwhirinaki.</p>
+                        <p className="mt-1 font-medium">Daelan Karangaroa PhD Research © 2026</p>
+                    </footer>
                 </div>
-              );
-            })}
-          </div>
-        </main>
-        
-        {/* Footer */}
-        <footer className="mt-8 py-6 text-center text-xs text-gray-400">
-          <p>Created for Cluster 21 Pouwhirinaki Practice.</p>
-          <p className="mt-1">Daelan Karangaroa PhD Research © 2026</p>
-        </footer>
-      </div>
-    </div>
-  );
-}
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
