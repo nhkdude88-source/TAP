@@ -43,77 +43,142 @@
             Hand: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg>
         };
 
-        const pouData = [
+        // 8 Phases of Te Ara Pōwhiri
+        const phaseData = [
             {
                 id: 1,
-                name: "POU TUARONGO",
-                brainRegion: "Brain Stem / Survival Brain",
-                anatomy: "Regulates autonomic functions, survival instincts, and the fight/flight/freeze response.",
+                name: "WAEREA",
+                subtitle: "The Clearing",
+                pou: "Pou Tuarongo",
+                brainRegion: "Brainstem / Self Regulation",
+                hp: "Te Waharoa",
+                imageUrl: "https://images.unsplash.com/photo-1618331835717-801e976710b2?q=80&w=600&auto=format&fit=crop", 
                 color: "bg-red-900",
                 lightColor: "bg-red-50",
                 textColor: "text-red-900",
                 borderColor: "border-red-200",
                 icon: "Shield",
-                stages: [
-                    { hp: "Te Waharoa", tap: "Waerea", desc: "Clear your own static. Ground yourself." },
-                    { hp: "Whakawhanaungatanga", tap: "Wero", desc: "Navigate the challenge. Hold the space safely." }
-                ],
-                indicators: "Yelling, posturing, running, refusing. Nervous system is in fight/flight. Assessing physical safety.",
-                action: "Ground yourself (He Urungā Tū). Do not pick up the weapon (argue). Silence. Hold the space safely until the 'earthquake' stops. Reduce all demands.",
-                script: "His Survival Brain (Pou Tuarongo) is activated. This is a safety check (Wero), not defiance. Lower demands and hold the space until his nervous system settles."
+                indicators: "Practitioner preparing to enter the space. Receiving the referral. Internal check required before engagement.",
+                action: "Clear your own stress response before engaging. Slow your breathing, soften your tone, anchor your posture. A dysregulated adult cannot welcome a warrior.",
+                script: "Before engaging, I must clear my own static and ground myself in He Urungā Tū. A dysregulated adult cannot co-regulate a dysregulated child."
             },
             {
                 id: 2,
-                name: "POU TOKOMANAWA",
-                brainRegion: "Limbic System / Emotional Brain",
-                anatomy: "Amygdala, Hippocampus, Hypothalamus, Thalamus, Cingulate Gyrus, Basal Ganglia.",
+                name: "WERO",
+                subtitle: "The Challenge",
+                pou: "Pou Tuarongo",
+                brainRegion: "Brainstem / Safety Check",
+                hp: "Whakawhanaungatanga",
+                imageUrl: null, 
+                color: "bg-red-800",
+                lightColor: "bg-red-50",
+                textColor: "text-red-800",
+                borderColor: "border-red-200",
+                icon: "Shield",
+                indicators: "Yelling, posturing, running, refusing. Threat appraisal and survival response. Nervous system is in fight/flight.",
+                action: "Read behaviour as a safety check, not disrespect. Do not escalate or argue. Reduce volume, reduce demands, increase predictability. Wait for the challenge to settle.",
+                script: "His Survival Brain (Pou Tuarongo) is activated. This is a safety check (Wero), not defiance. Lower demands and hold the space safely."
+            },
+            {
+                id: 3,
+                name: "KARANGA",
+                subtitle: "The Call",
+                pou: "Pou Tokomanawa",
+                brainRegion: "Limbic / Relational Connection",
+                hp: "Kohikohi",
+                imageUrl: "https://images.unsplash.com/photo-1518182170546-076616fdcd80?q=80&w=600&auto=format&fit=crop", 
+                color: "bg-emerald-900",
+                lightColor: "bg-emerald-50",
+                textColor: "text-emerald-900",
+                borderColor: "border-emerald-200",
+                icon: "Heart",
+                indicators: "Pausing, checking for safety, assessing friend or foe. Looking for belonging and emotional safety.",
+                action: "Use voice, warmth, and rhythm to signal safety. Connect to the person (whakapapa, mana, identity), not the problem. 'I see you. I’m with you.'",
+                script: "His Emotional Brain is scanning for threats. He needs a Karanga. Soften your tone, use his name, and acknowledge him before talking about schoolwork."
+            },
+            {
+                id: 4,
+                name: "WHAIKŌRERO",
+                subtitle: "The Speech",
+                pou: "Pou Tokomanawa",
+                brainRegion: "Limbic / Sense-Making",
+                hp: "Āta Whakaaro",
+                imageUrl: null, 
                 color: "bg-emerald-800",
                 lightColor: "bg-emerald-50",
                 textColor: "text-emerald-800",
                 borderColor: "border-emerald-200",
                 icon: "Heart",
-                stages: [
-                    { hp: "Kohikohi", tap: "Karanga", desc: "Send the call of connection. Prioritize Whakapapa." },
-                    { hp: "Āta Whakaaro", tap: "Whaikōrero", desc: "Speak the truth with mana. Reframe the narrative." }
-                ],
-                indicators: "Pausing, looking around, checking for safety, glaring but quiet. Assessing friend or foe.",
-                action: "Soften your eyes (Kanohi Kitea). Use their name. Acknowledge identity (Whakapapa) to establish relational safety before discussing any problems.",
-                script: "His Emotional Brain (Pou Tokomanawa) is scanning for threats. He needs a Karanga. Soften your tone, use his name, and acknowledge him before talking about schoolwork."
+                indicators: "Gathering narratives, exchanging truths, analyzing patterns of behaviour across the ecosystem.",
+                action: "Speak the truth with mana. Reframe the narrative from deficit to clinical understanding. Validate experiences while advocating for the mokopuna's emotional safety.",
+                script: "The data shows us his nervous system drops into a survival response when culturally unsafe. We need to heal the environment, not fix the child."
             },
             {
-                id: 3,
-                name: "POU TĀHŪ",
-                brainRegion: "Diencephalon & Cerebellum / Movement Brain",
-                anatomy: "Regulates motor control, rhythm, coordination, and patterned regulatory impulses.",
+                id: 5,
+                name: "WAIATA",
+                subtitle: "The Song",
+                pou: "Pou Tāhū",
+                brainRegion: "Diencephalon / Rhythm & State Regulation",
+                hp: "Tātai",
+                imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop", 
+                color: "bg-blue-900",
+                lightColor: "bg-blue-50",
+                textColor: "text-blue-900",
+                borderColor: "border-blue-200",
+                icon: "Activity",
+                indicators: "Arousal settling through predictability and low cognitive load. Looking for a pattern to latch onto.",
+                action: "Engage in simple, repetitive rhythm (waiata, humming, walking side-by-side). Keep tempo steady and familiar. Rhythm communicates 'safe' faster than words.",
+                script: "A plan cannot be dictated; it must be a shared rhythm. We need to design interventions that rely on predictability to soothe the Movement Brain."
+            },
+            {
+                id: 6,
+                name: "KOHA",
+                subtitle: "The Gift",
+                pou: "Pou Tāhū",
+                brainRegion: "Diencephalon / Reciprocity & Agency",
+                hp: "Whakamahi",
+                imageUrl: null, 
                 color: "bg-blue-800",
                 lightColor: "bg-blue-50",
                 textColor: "text-blue-800",
                 borderColor: "border-blue-200",
                 icon: "Activity",
-                stages: [
-                    { hp: "Tātai", tap: "Waiata", desc: "Find the shared rhythm. Plan predictability." },
-                    { hp: "Whakamahi", tap: "Koha", desc: "Stand side-by-side. Reciprocal co-regulation." }
-                ],
-                indicators: "Breathing slower, waiting, but fidgeting or unable to sit perfectly still. Needing a physical outlet.",
-                action: "Stand side-by-side. Engage in a shared, predictable, rhythmic activity (walking, deep breathing, a simple task) to co-regulate and soothe the nervous system.",
-                script: "Before we access the Thinking Brain for math, we must regulate the Movement Brain (Pou Tāhū). Let's use a rhythmic activity—a quick walk or predictable task—to settle his body first."
+                indicators: "Ready for exchange. Choice returns control and reduces threat. Willing to cooperate if given agency.",
+                action: "Offer a mana-enhancing way forward (water, break, a choice of task order). This signals the shift from conflict to exchange. Agency opens the pathway toward problem-solving.",
+                script: "Offer a way forward with dignity. This reciprocal exchange (Koha) regulates the nervous system and shifts us from conflict to collaboration."
             },
             {
-                id: 4,
-                name: "POU KAIĀWHĀ",
-                brainRegion: "Cerebral Cortex / Thinking Brain",
-                anatomy: "Regulates executive functioning, logic, reasoning, language, and future planning.",
+                id: 7,
+                name: "HONGI",
+                subtitle: "The Shared Breath",
+                pou: "Pou Kaiāwhā",
+                brainRegion: "Cortex & Limbic / Co-Regulation",
+                hp: "Whai Whakaaro",
+                imageUrl: "https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?q=80&w=600&auto=format&fit=crop", 
+                color: "bg-amber-700",
+                lightColor: "bg-amber-50",
+                textColor: "text-amber-800",
+                borderColor: "border-amber-200",
+                icon: "Brain",
+                indicators: "Relational settling and nervous system synchrony. Shoulders drop, relaxed posture. The 'tapu' begins to lift.",
+                action: "Use safe proximity (non-threatening posture, soft eye gaze). Allow silence and shared breathing to do the work. (In kura, hongi may be enacted as shared hā rather than physical contact).",
+                script: "The environment is becoming Noa. By standing side-by-side and sharing the heavy lifting, we lift the tapu of the crisis."
+            },
+            {
+                id: 8,
+                name: "HĀKARI",
+                subtitle: "The Feast",
+                pou: "Pou Kaiāwhā",
+                brainRegion: "Cerebral Cortex / Learning & Executive Function",
+                hp: "Mana Motuhake",
+                imageUrl: null, 
                 color: "bg-amber-600",
                 lightColor: "bg-amber-50",
                 textColor: "text-amber-800",
                 borderColor: "border-amber-200",
                 icon: "Brain",
-                stages: [
-                    { hp: "Whai Whakaaro", tap: "Hongi", desc: "Deep reflection and the shared breath of intellect." },
-                    { hp: "Mana Motuhake", tap: "Hākari", desc: "Celebrate mastery and transition independently." }
-                ],
-                indicators: "Relaxed body language, making eye contact, focused, smiling or ready to engage cognitively.",
-                action: "Celebrate mastery. Engage in high-level reflection. Discuss the repair/plan using cognitive logic now that the lower brain regions are safe.",
+                indicators: "Cognitive access restored: planning, reflection, learning. Making eye contact, ready to engage intellectually.",
+                action: "The Cognitive Feast: Only once the student is settled and Noa do we introduce reflection, reasoning, teaching, repair conversations, or academic tasks.",
                 script: "The environment is Noa (Safe). His Thinking Brain (Pou Kaiāwhā) is online. Now we can do the cognitive work, reflect on the behaviour, and engage in learning."
             }
         ];
@@ -137,16 +202,16 @@
                             </div>
                         </div>
                         <p className="mt-4 text-sm text-slate-300 leading-relaxed font-medium">
-                            Select the brain state you are observing to access the 1-to-1 casework matrix, strategies, and Kaiako scripts.
+                            Select the Pōwhiri phase you are currently observing to align your clinical response, He Pikorua action, and Kaiako script.
                         </p>
                     </header>
 
                     {/* Accordion List */}
                     <main className="flex-1 px-4 -mt-4 pt-8 pb-10 z-0 overflow-y-auto no-scrollbar">
-                        <div className="space-y-4">
-                            {pouData.map((pou) => {
-                                const isExpanded = expandedId === pou.id;
-                                const IconComponent = Icons[pou.icon];
+                        <div className="space-y-3">
+                            {phaseData.map((phase) => {
+                                const isExpanded = expandedId === phase.id;
+                                const IconComponent = Icons[phase.icon];
                                 const ChevronDown = Icons.ChevronDown;
                                 const ChevronUp = Icons.ChevronUp;
                                 const Eye = Icons.Eye;
@@ -154,28 +219,28 @@
                                 const Quote = Icons.Quote;
 
                                 return (
-                                    <div key={pou.id} className={`bg-white rounded-2xl shadow-sm border overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'ring-2 ring-slate-400 shadow-md' : 'border-gray-200'}`}>
+                                    <div key={phase.id} className={`bg-white rounded-2xl shadow-sm border overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'ring-2 ring-slate-400 shadow-md' : 'border-gray-200'}`}>
                                         
                                         {/* Accordion Header */}
                                         <button
-                                            onClick={() => toggleExpand(pou.id)}
-                                            className={`w-full flex items-center justify-between p-4 text-left transition-colors duration-200 ${isExpanded ? pou.color : 'bg-white hover:bg-gray-50'}`}
+                                            onClick={() => toggleExpand(phase.id)}
+                                            className={`w-full flex items-center justify-between p-4 text-left transition-colors duration-200 ${isExpanded ? phase.color : 'bg-white hover:bg-gray-50'}`}
                                         >
                                             <div className="flex items-center space-x-4">
-                                                <div className={`p-2 rounded-xl ${isExpanded ? 'bg-white/20 text-white' : pou.textColor + ' bg-gray-100'}`}>
-                                                    <IconComponent />
+                                                <div className={`p-2 rounded-xl flex items-center justify-center w-10 h-10 ${isExpanded ? 'bg-white/20 text-white' : phase.textColor + ' bg-gray-100'}`}>
+                                                    <span className="font-black text-sm mr-1">{phase.id}.</span> 
                                                 </div>
                                                 <div>
-                                                    <h3 className={`font-bold text-lg leading-tight ${isExpanded ? 'text-white' : 'text-slate-900'}`}>
-                                                        {pou.name}
+                                                    <h3 className={`font-bold text-lg leading-tight tracking-wide ${isExpanded ? 'text-white' : 'text-slate-900'}`}>
+                                                        {phase.name}
                                                     </h3>
-                                                    <p className={`text-xs font-semibold mt-0.5 ${isExpanded ? 'text-white/80' : 'text-slate-500'}`}>
-                                                        {pou.brainRegion}
+                                                    <p className={`text-xs font-semibold mt-0.5 uppercase tracking-wider ${isExpanded ? 'text-white/80' : 'text-slate-500'}`}>
+                                                        {phase.subtitle}
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className="shrink-0 ml-2">
-                                                {isExpanded ? <ChevronUp /> : <ChevronDown className="text-slate-400" />}
+                                                {isExpanded ? <ChevronUp className="text-white" /> : <ChevronDown className="text-slate-400" />}
                                             </div>
                                         </button>
 
@@ -183,28 +248,25 @@
                                         <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'}`}>
                                             <div className="p-5 space-y-6 bg-white">
                                                 
-                                                {/* Anatomy Note */}
-                                                <div className="text-xs text-slate-500 italic border-b pb-3">
-                                                    {pou.anatomy}
+                                                {/* Badge Alignment Matrix */}
+                                                <div className="flex flex-wrap gap-2">
+                                                    <span className={`px-2.5 py-1 text-[10px] font-extrabold uppercase rounded-full border ${phase.textColor} ${phase.borderColor} ${phase.lightColor}`}>
+                                                        He Pikorua: {phase.hp}
+                                                    </span>
+                                                    <span className={`px-2.5 py-1 text-[10px] font-extrabold uppercase rounded-full border ${phase.textColor} ${phase.borderColor} ${phase.lightColor}`}>
+                                                        {phase.pou}
+                                                    </span>
+                                                    <span className={`px-2.5 py-1 text-[10px] font-extrabold uppercase rounded-full border text-slate-600 border-slate-200 bg-slate-50 flex items-center`}>
+                                                        <IconComponent /> <span className="ml-1.5">{phase.brainRegion}</span>
+                                                    </span>
                                                 </div>
-                                                
-                                                {/* Phases Alignment */}
-                                                <div className={`p-4 rounded-xl border ${pou.lightColor} ${pou.borderColor}`}>
-                                                    <h4 className={`text-xs uppercase font-extrabold mb-3 tracking-wider ${pou.textColor}`}>Alignment Matrix</h4>
-                                                    <div className="space-y-3">
-                                                        {pou.stages.map((stage, index) => (
-                                                            <div key={index} className="flex flex-col">
-                                                                <div className="flex items-center text-sm font-bold text-slate-800">
-                                                                    <span className={`w-1.5 h-1.5 rounded-full mr-2 ${pou.color}`}></span>
-                                                                    {stage.hp} & {stage.tap}
-                                                                </div>
-                                                                <div className="text-xs text-slate-600 ml-3.5 mt-0.5">
-                                                                    {stage.desc}
-                                                                </div>
-                                                            </div>
-                                                        ))}
+
+                                                {/* IMAGE SECTION (Only shows if URL exists) */}
+                                                {phase.imageUrl && (
+                                                    <div className="w-full h-28 overflow-hidden rounded-xl border-2 shadow-sm" style={{ borderColor: '#' + (phase.color.includes('red') ? '991b1b' : phase.color.includes('emerald') ? '065f46' : phase.color.includes('blue') ? '1e40af' : 'b45309') }}>
+                                                        <img src={phase.imageUrl} alt={phase.name} className="w-full h-full object-cover" />
                                                     </div>
-                                                </div>
+                                                )}
 
                                                 {/* Indicators */}
                                                 <div>
@@ -213,7 +275,7 @@
                                                         <h4 className="font-bold text-slate-800 text-sm uppercase tracking-wide">What You See</h4>
                                                     </div>
                                                     <p className="text-sm text-slate-600 leading-relaxed pl-6 border-l-2 border-slate-200">
-                                                        {pou.indicators}
+                                                        {phase.indicators}
                                                     </p>
                                                 </div>
 
@@ -224,18 +286,18 @@
                                                         <h4 className="font-bold text-slate-800 text-sm uppercase tracking-wide">Your RTLB Action</h4>
                                                     </div>
                                                     <p className="text-sm text-slate-600 leading-relaxed pl-6 border-l-2 border-slate-200">
-                                                        {pou.action}
+                                                        {phase.action}
                                                     </p>
                                                 </div>
 
                                                 {/* Script */}
-                                                <div className={`mt-2 p-4 rounded-xl border-l-4 shadow-sm bg-white border ${pou.borderColor}`} style={{ borderLeftColor: '#' + (pou.color.includes('red') ? '991b1b' : pou.color.includes('emerald') ? '065f46' : pou.color.includes('blue') ? '1e40af' : 'b45309') }}>
+                                                <div className={`mt-2 p-4 rounded-xl border-l-4 shadow-sm bg-white border ${phase.borderColor}`} style={{ borderLeftColor: '#' + (phase.color.includes('red') ? '991b1b' : phase.color.includes('emerald') ? '065f46' : phase.color.includes('blue') ? '1e40af' : 'b45309') }}>
                                                     <div className="flex items-center space-x-2 mb-2">
                                                         <Quote />
-                                                        <h4 className={`font-bold text-sm uppercase tracking-wide ${pou.textColor}`}>Kaiako Coaching Script</h4>
+                                                        <h4 className={`font-bold text-sm uppercase tracking-wide ${phase.textColor}`}>Kaiako Coaching Script</h4>
                                                     </div>
                                                     <p className="text-sm text-slate-800 italic font-medium leading-relaxed">
-                                                        "{pou.script}"
+                                                        "{phase.script}"
                                                     </p>
                                                 </div>
 
